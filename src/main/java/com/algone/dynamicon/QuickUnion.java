@@ -10,12 +10,14 @@ public class QuickUnion implements DynamicConnections<Integer> {
     private int[] id;
     private int size;
 
+    public QuickUnion() {
+
+    }
+
     public QuickUnion(List<ConnectedPair> list) {
         size = list.size();
-        id = new int[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-            id[i] = i;
-        }
+
+        init(size);
         for (ConnectedPair pair : list) {
             connect(pair.getFirst(), pair.getSecond());
         }
@@ -32,7 +34,7 @@ public class QuickUnion implements DynamicConnections<Integer> {
         id[rootA] = rootB;
     }
 
-    private Integer findRoot(Integer a) {
+    Integer findRoot(Integer a) {
 
         // to find the root of an element we traverse the tree starting from the button
 
@@ -49,6 +51,25 @@ public class QuickUnion implements DynamicConnections<Integer> {
 //        }
     }
 
+
+    protected void setSize(int size) {
+        this.size = size;
+    }
+
+    protected void init(int size) {
+        id = new int[size];
+        for (int i = 0; i < size; i++) {
+            id[i] = i;
+        }
+    }
+
+    protected Integer getId(int position){
+        return id[position];
+    }
+
+    protected Integer setId(int position,int value){
+        return id[position];
+    }
 
     @Override
     public boolean isConnected(Integer a, Integer b) {
